@@ -225,6 +225,10 @@ header {
   align-items: center;
 }
 
+.features__img-three {
+  top: 60px;
+}
+
 .features__descriprion {
   font-size: 16px;
   line-height: 25.6px;
@@ -233,7 +237,7 @@ header {
 .features__btn  {
   position: relative;
   top: 10px;
-  padding-right: 40px;
+  padding: 2px 40px 2px 10px;
   font-size: 16px;
   line-height: 25.6px;
   letter-spacing: 0.5px;
@@ -245,7 +249,7 @@ header {
 .features__btn::before {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 2px;
   content: "";
   width: 20px;
   border-top: 2px solid #9C69E2;
@@ -253,21 +257,21 @@ header {
 
 .features__btn::after {
   position: absolute;
-  top: 30%;
-  right: 0;
+  top: 32%;
+  right: 2px;
   content: "";
   width: 10px;
   height: 10px;
-  border-top: 2px solid #9C69E2;
-  border-right: 2px solid #9C69E2;
+  border-top: 2px solid rgb(156, 105, 226);
+  border-right: 2px solid rgb(156, 105, 226);
   transform: rotate(45deg);
 }
 
 .features__btn:hover  {
-  letter-spacing: 0.1px;
-  color: rgb(92, 53, 146);
-  border-bottom: 1px solid #735a9681;
-  transition: 0.5s;
+  color: rgb(122, 84, 175);
+  box-shadow: 1px 0px 1px rgba(155, 105, 226, 0.753) inset, -1px 0px 1px rgba(155, 105, 226, 0.753) inset;
+  border-radius: 10px;
+  transition: all .2s ease-in-out;
 } 
 
 .testimonials {
@@ -298,10 +302,7 @@ header {
   display: flex;
   width: 400px;
   height: 330px;
-  padding-top: 55px;
-  padding-right: 70px;
-  padding-bottom: 70px;
-  padding-left: 40px;
+  padding: 55px 70px 70px 40px;
   margin: 10px;
   border: 1px solid rgb(156, 105, 226);
   box-shadow: 0px 20px 0px rgba(111, 25, 229, 0.1);
@@ -317,7 +318,6 @@ header {
 .testimonials__card--active {
   width: 635px;
   padding-left: 70px;
-  border: none;
   box-shadow: 0px 20px 0px rgba(106, 34, 206, 0.3);
 }
 
@@ -426,10 +426,12 @@ footer {
   flex-basis: 200px;
 }
 
-.footer_name {
-  display: inline-block;
+.footer__logo-block {
+  max-width: 225px;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 64px;
-  
+  vertical-align: middle;
 }
 
 .footer__name-company {
@@ -540,17 +542,22 @@ footer {
     padding-bottom: 90px;
   }
   .headline {
-    background: url(./img/headline/headline.svg) 100% 100% no-repeat;
-    background-size: 65%;
+    background: url(./img/headline/headline.svg) 90% 75% no-repeat;
+    background-size: 80%;
+    padding-bottom: 0px;
   }
   .headline__title {
     max-width: 100%;
   }
   .headline__text {
-    max-width: 65%;
+    max-width: 80%;
+    padding-bottom: 310px;
   } 
   .headline__button {
     font-size: 14px;
+  }
+  .features__cards {
+    margin-left: 70px;
   }
   .features__text {
     line-height: 30px;
@@ -576,10 +583,7 @@ footer {
     margin-bottom: 80px;
   }
   .testimonials__wrap {
-    padding-top: 50px;
-    padding-right: 40px;
-    padding-bottom: 20px;
-    padding-left: 40px;
+    padding: 50px 40px 20px 40px;
   }
   .testimonials__title {
     padding-top: 0;
@@ -602,24 +606,58 @@ footer {
   footer {
     padding-top: 90px;
   }
-  /* .footer__wrap {
-    display: block;
-  } */
   .footer__feedback-block {
     padding-bottom: 30px;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 540px) {
+  .container {
+    max-width: 100%;
+  }
+  .headline {
+    background-size: 100%;
+  }
+  .features__item {
+    max-width: 370px;
+    padding: 40px 40px 30px 130px;
+  }
+  .footer__wrap {
+    display: block;
+  }
+  .about__wrap {
+    padding: 0;
+  }
+  .about__img {
+    max-width: 50%;
+  }
+  .about__text {
+    padding: 20px;
+  }
+  .about__description {
+    line-height: 25px;
+  }
+  .testimonials__wrap {
+    padding: 30px 40px 10px 30px;
+  }
+  .testimonials__card {
+    padding: 20px 23px;
+  }
+  .testimonials__card--active {
+    width: 40%;
+  }
+}
+
+@media (max-width: 408px) {
   h2 {
-    font-size: 20px;
+    font-size: 24px;
     line-height: 30px;
     padding-bottom: 20px;
   }
   .headline {
     background: url(./img/headline/headline.svg) 80% 85% no-repeat;
-    background-size: 100%;
     padding-bottom: 0px;
+    background-size: 100%;
   }
   .headline__title {
     max-width: 100%;
@@ -631,17 +669,8 @@ footer {
   .headline__text {
     padding-bottom: 200px;
   }
-  .about__wrap {
-    padding: 0;
-  }
   .about__img {
-    max-width: 100%;
-  }
-  .about__text {
-    padding: 20px;
-  }
-  .about__description {
-    line-height: 25px;
+    max-width: 90%;
   }
   .features__title {
     padding-bottom: 40px;
@@ -666,12 +695,56 @@ footer {
   }
   .features__btn {
     width: 80px;
-    left: 145px;
+    left: 160px;
   }
   .features__btn::after {
     top: 40%;
   }
+  .features__btn::before {
+    width: 0px;
+  }
+  .testimonials__card {
+    max-width: 220px;
+    padding: 5px 15px;
+  }
+  .testimonials__text {
+    font-size: 14px;
+  }
+  .testimonials__card--active {
+    width: 250px;
+  }
+  .testimonials__wrap {
+    padding: 30px 30px 10px 20px;
+  }
+  .testimonials__text--hidden {
+    width: 160px;
+  }
+  .testimonials__slider-control {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .testimonials__prev {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top: 2px solid rgb(255, 255, 255);
+    border-left: 2px solid rgb(255, 255, 255);
+    transform: rotate(-45deg);
+  }
+  .testimonials__next {
+    width: 13px;
+    height: 13px;
+    background: transparent;
+    border-top: 2px solid rgba(255, 255, 255, 0.7);
+    border-left: 2px solid rgb(255, 255, 255, 0.7);
+    transform: rotate(135deg);
+  }
+  footer {
+    padding-top: 50px;
 }
-
+  .footer__logo-block {
+    margin-bottom: 30px;
+  }
+}
 
 
