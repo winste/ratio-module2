@@ -1,0 +1,35 @@
+* {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 450px;
+  margin: 0 auto;
+}
+
+body {
+  color: #776e65;
+}
+
+.table {
+  width: 450px;
+  height: 450px;
+  padding: 12px;
+  background: #bbada0;
+  border-radius: 5px;
+}
+.table__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+.table__cell {
+  width: 97.5px;
+  height: 97.5px;
+  margin-right: 10px;
+  background: rgba(238, 228, 218, 0.35);
+  background-repeat: 3px;
+}
