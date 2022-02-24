@@ -83,6 +83,7 @@ header {
 
 .nav {
   display: inline-block;
+  /* Это плохо */
   min-width: 83.9%;
 }
 
