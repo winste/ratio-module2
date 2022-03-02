@@ -1,0 +1,14 @@
+:root {
+    --color-text: rgb(119, 110, 101);
+    --height-table: 450px;
+    --width-table: 450px;
+}
+
+.container {
+    max-width: var(--width-table);
+    margin: 0 auto;
+}
+
+body {
+    color: var(--color-text);
+}
