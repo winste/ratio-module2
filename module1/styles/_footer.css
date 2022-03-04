@@ -1,0 +1,72 @@
+footer {
+    padding-top: 165px;
+    padding-bottom: 65px;
+    border-top: 2px solid rgb(156, 105, 226, 0.2);
+  }
+  
+  .footer__wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer__feedback-block {
+    flex-basis: 300px;
+    line-height: 28.8px;
+  }
+  
+  .footer__sociail {
+    flex-basis: 200px;
+  }
+  
+  .footer__logo-block {
+    max-width: 225px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    vertical-align: middle;
+  }
+  
+  .footer__name-company {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .footer__adress {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .footer__contacts {
+    font-weight: normal;
+    margin-bottom: 36px;
+  }
+  
+  .footer__copyright {
+    font-size: 12px;
+  }
+  
+  .footer__social-media {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+  
+  .social__logo {
+    padding: 15px 25px;
+    margin-right: 14px;
+    opacity: 0.1;
+    border-radius: 50%;
+  }
+  
+  .facebook {
+    background: rgba(33, 35, 83, 1) url(./img/footer/facebook.svg) no-repeat center;
+  }
+  
+  .twitter {
+    background: rgba(33, 35, 83, 1) url(./img/footer/twitter.svg) no-repeat center;
+  }
+  
+  .instagram {
+    background: rgba(33, 35, 83, 1) url(./img/footer/instagram.svg) no-repeat center;
+  }

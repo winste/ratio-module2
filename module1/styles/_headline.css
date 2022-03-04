@@ -1,0 +1,34 @@
+.headline {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+    margin-bottom: 100px;
+    background: url(./img/headline/headline.svg) 100% 100% no-repeat;
+    background-size: 65%;
+  }
+  
+  .headline__title {
+    max-width: 58%;
+    padding-bottom: 50px;
+  }
+  
+  .headline__text {
+    max-width: 33%;
+    line-height: 28.8px;
+    padding-bottom: 50px;
+  }
+  
+  .headline__button {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 16px 37px;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(156, 105, 226, 1);
+    border-radius: 50px;
+    cursor: pointer;
+  }
+  
+  .headline__button:hover {
+    background-color: rgb(139, 92, 206);
+  }

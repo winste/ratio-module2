@@ -1,0 +1,27 @@
+header {
+    padding-top: 62px;
+    padding-bottom: 143px;
+  }
+  
+  .active {
+    color: rgba(33, 35, 83, 1);
+    font-weight: 800;
+  }
+  
+  .header__navigation {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .nav {
+    display: inline-block;
+    min-width: 83.9%;
+  }
+  
+  .nav__list {
+    display: flex;
+  }
+  
+  .nav__item {
+    margin-right: 30px;
+  }

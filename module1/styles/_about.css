@@ -1,0 +1,30 @@
+.about {
+    margin-bottom: 150px;
+  }
+  
+  .about__wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: rgba(240, 99, 184, 0.15);
+    border-radius: 50px;
+    vertical-align: middle;
+  }
+  
+  .about__img {
+    max-width: 469px;
+  }
+  .about__text {
+    padding-top: 125px;
+    padding-right: 93px;
+    padding-bottom: 125px;
+    max-width: 475px;
+  }
+  
+  .about__title {
+    padding-bottom: 40px;
+  }
+  
+  .about__description {
+    line-height: 28.8px;
+  }

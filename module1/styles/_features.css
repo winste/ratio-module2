@@ -1,0 +1,113 @@
+.features {
+    text-align: center;
+  }
+  
+  .features__title {
+    padding-bottom: 50px;
+  }
+  
+  .features__text {
+    max-width: 52.2%;
+    text-align: center;
+    display: inline-block;
+    padding-bottom: 100px;
+  } 
+  
+  .features__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 125px;
+    row-gap: 50px;
+    min-width: 90%;
+    text-align: left;
+    margin-bottom: 150px;
+    margin-left: 103px;
+  }
+  
+  .features__item {
+    position: relative;
+    max-width: 442px;
+    min-height:  358px;
+    padding: 49px 50px 33px 152px;
+    border-radius: 20px;
+    background-size: cover;
+  }
+  
+  .features__item-text {
+    min-height: 230px;
+    max-height: 250px;
+  }
+  
+  .features__one {
+    background: url(./img/features/bgCard1.svg) no-repeat 100%;
+  }
+  
+  .features__two {
+    background: url(./img/features/bgCard2.svg) no-repeat 100%;
+  }
+  
+  .features__three {
+    background: url(./img/features/bgCard3.svg) no-repeat 100%;
+  }
+  
+  .features__four {
+    background: url(./img/features/bgCard4.svg) no-repeat 100%;
+  }
+  
+  .features__item-img {
+    height: 234px;
+    position: absolute;
+    top: 40px;
+    left: -107px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .features__img-three {
+    top: 60px;
+  }
+  
+  .features__descriprion {
+    font-size: 16px;
+    line-height: 25.6px;
+  }
+  
+  .features__btn  {
+    position: relative;
+    top: 10px;
+    padding: 2px 40px 2px 10px;
+    font-size: 16px;
+    line-height: 25.6px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .features__btn::before {
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    content: "";
+    width: 20px;
+    border-top: 2px solid #9C69E2;
+  }
+  
+  .features__btn::after {
+    position: absolute;
+    top: 32%;
+    right: 2px;
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid rgb(156, 105, 226);
+    border-right: 2px solid rgb(156, 105, 226);
+    transform: rotate(45deg);
+  }
+  
+  .features__btn:hover  {
+    color: rgb(122, 84, 175);
+    box-shadow: 1px 0px 1px rgba(155, 105, 226, 0.753) inset, -1px 0px 1px rgba(155, 105, 226, 0.753) inset;
+    border-radius: 10px;
+    transition: all .2s ease-in-out;
+  } 

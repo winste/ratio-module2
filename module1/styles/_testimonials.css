@@ -1,0 +1,130 @@
+.testimonials {
+    margin-bottom: 150px;
+  }
+  
+  .testimonials__wrap {
+    position: relative;
+    padding: 59px 76px;
+    background-color: rgba(156, 105, 226, 1);
+    border-radius: 50px;
+  }
+  
+  .testimonials__title {
+    padding-top: 50px;
+    padding-bottom: 88px;
+    color: rgb(255, 255, 255);
+  }
+  
+  .testimonials__slider {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .testimonials__card {
+    position: relative;
+    display: flex;
+    width: 400px;
+    height: 330px;
+    padding: 55px 70px 70px 40px;
+    margin: 10px;
+    border: 1px solid rgb(156, 105, 226);
+    box-shadow: 0px 20px 0px rgba(111, 25, 229, 0.1);
+    background: #FFFFFF;
+    border-radius: 20px;
+  }
+  
+  .testimonials__card-wrap {
+    padding-top: 20px;
+    padding-left: 30px;
+  }
+  
+  .testimonials__card--active {
+    width: 635px;
+    padding-left: 70px;
+    box-shadow: 0px 20px 0px rgba(106, 34, 206, 0.3);
+  }
+  
+  .testimonials__avatar {
+    top: 60px;
+    left: 70px;
+    width: 90px;
+    height: 90px;
+  }
+  
+  .testimonials__user {
+    padding-bottom: 19px;
+  }
+  
+  .testimonials__user-name {
+    color: rgba(33, 35, 83, 1);
+    font-weight: bold;
+    line-height: 160%;
+    letter-spacing: 0.5%;
+  }
+  
+  .testimonials__user-info {
+    font-size: 14px;
+    color: rgba(156, 105, 226, 1);
+    letter-spacing: 1%;
+  }
+  
+  .testimonials__text {
+    line-height: 180%;
+  }
+  
+  .testimonials__text--hidden {
+    width: 180px;
+    height: 130px;
+    overflow: hidden;
+  }
+  
+  .testimonials__card--hidden::after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 95%;
+    height: 95%;
+    top: 5px;
+    left: 5px;
+    background: linear-gradient(270deg, rgb(255, 255, 255) 10%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 20px;
+  }
+  
+  .testimonials__slider-control {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 390px;
+  }
+  
+  .testimonials__point {
+    position: relative;
+    bottom: 15px;
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    line-height: 5px;
+    letter-spacing: 1px;
+  }
+  
+  .testimonials__point--active {
+    bottom: 13px;
+    font-size: 80px;
+    color: rgba(240, 99, 184, 1);
+  }
+  
+  .testimonials__btn {
+    width: 27px;
+    height: 15px;
+    color: transparent;
+    cursor: pointer;
+  }
+  
+  .testimonials__prev {
+    width: 47px;
+    margin-right: 15px;
+    background: url(./img/testimonials/arrowR.svg) no-repeat center;
+  }
+  
+  .testimonials__next {
+    background: url(./img/testimonials/arrowL.svg) no-repeat center;
+  }
