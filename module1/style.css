@@ -8,7 +8,6 @@
 @import url(./styles/_testimonials.css);
 @import url(./styles/_footer.css);
 
-
 @media (max-width: 992px) {
   .container {
     max-width: 900px;
@@ -148,11 +147,11 @@
   .headline {
     background-size: 100%;
   }
+  .nav {
+    margin-left: 50px;
+  }
   .nav__list {
     justify-content: space-around;
-  }
-  .nav__item {
-    margin-right: 0px;
   }
   .features__item {
     max-width: 370px;

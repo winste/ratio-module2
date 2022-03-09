@@ -3,8 +3,6 @@
     margin: 0 auto;
     padding-bottom: 100px;
     margin-bottom: 100px;
-    background: url(./img/headline/headline.svg) 100% 100% no-repeat;
-    background-size: 65%;
   }
   
   .headline__title {
@@ -19,7 +17,7 @@
   }
   
   .headline__button {
-    font-family: "Ubuntu", sans-serif;
+    font-family: var(--main-font);
     font-size: 18px;
     font-weight: 800;
     padding: 16px 37px;
