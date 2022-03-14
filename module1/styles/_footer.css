@@ -1,13 +1,11 @@
-footer {
+  .footer {
+    display: flex;
+    justify-content: space-between;
     padding-top: 165px;
     padding-bottom: 65px;
     border-top: 2px solid rgb(156, 105, 226, 0.2);
   }
   
-  .footer__wrap {
-    display: flex;
-    justify-content: space-between;
-  }
   
   .footer__feedback-block {
     flex-basis: 300px;
