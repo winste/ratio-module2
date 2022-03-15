@@ -8,7 +8,7 @@
 @import url(./styles/_footer.css);
 
 :root {
-  --main-font: "Ubuntu", Arial, Helvetica, sans-serif;
+  --main-font: 'Ubuntu', 'Arial', 'Helvetica', sans-serif;
   --font-size-body: 18px;
   --color-body: rgba(75, 93, 104, 1);
   --color-title: rgba(33, 35, 83, 1);

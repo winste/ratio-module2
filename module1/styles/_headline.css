@@ -6,17 +6,17 @@
   }
   
   .headline__title {
-    max-width: 58%;
-    padding-bottom: 50px;
+    max-width: 650px;
   }
   
   .headline__text {
-    max-width: 33%;
+    max-width: 380px;
     line-height: 28.8px;
     padding-bottom: 50px;
   }
   
   .headline__button {
+    display: block;
     font-family: var(--main-font);
     font-size: 18px;
     font-weight: 800;
@@ -29,4 +29,10 @@
   
   .headline__button:hover {
     background-color: rgb(139, 92, 206);
+  }
+
+  .headline__img {
+    position: relative;
+    left: 350px;
+    top: -300px;
   }
