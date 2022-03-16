@@ -1,10 +1,11 @@
 .headline {
     max-width: 1300px;
+    max-height: 560px;
     margin: 0 auto;
     padding-bottom: 100px;
     margin-bottom: 100px;
   }
-  
+
   .headline__title {
     max-width: 650px;
   }
@@ -33,6 +34,7 @@
 
   .headline__img {
     position: relative;
+    top: -350px;
     left: 350px;
-    top: -300px;
   }
+  
