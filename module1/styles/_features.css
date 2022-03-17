@@ -15,22 +15,17 @@
 
   .features__cards {
     display: flex;
-  }
-  
-  .features__item {
-    max-width: 442px;
-    max-height:  358px;
-    border-radius: 20px;
+    flex-wrap: wrap;
   }
 
   .features__bg {
     margin-left: 130px;
   }
-
-  .features__img {
-    position: relative;
-    top: -250px;
-    right: 100px;
+  
+  .features__item {
+    /* min-height: 442px; */
+    max-width: 530px;
+    max-height:  358px;
   }
 
   .features__item-text {
