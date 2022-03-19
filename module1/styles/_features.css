@@ -15,12 +15,11 @@
 
   .features__cards {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
   }
 
   .features__item {
-    max-width: 530px;
     max-height:  358px;
     margin-bottom: 50px;
   }
@@ -36,9 +35,12 @@
     font-size: 16px;
     line-height: 25.6px;
     min-height: 160px;
+    margin-bottom: 20px;
   }
   
   .features__btn  {
+    display: flex;
+    align-items: center;
     padding: 3px 10px;
     font-size: 16px;
     line-height: 25.6px;
@@ -53,8 +55,6 @@
   }
   
   .features__btn:hover  {
-    color: rgb(122, 84, 175);
-    box-shadow: 1px 0px 1px rgba(155, 105, 226, 0.753) inset, -1px 0px 1px rgba(155, 105, 226, 0.753) inset;
-    border-radius: 10px;
+    color: var(--color-hover);
     transition: all .2s ease-in-out;
   } 
