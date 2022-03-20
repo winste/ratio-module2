@@ -1,17 +1,19 @@
-@import './styles/_normalize.css';
-@import './styles/_headline.css';
+@import url(./styles/_normalize.css);
+@import url(./styles/_grid.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
 
 :root {
-    --color-text: rgb(119, 110, 101);
-    --height-table: 450px;
-    --width-table: 450px;
+  --color-grid: rgb(187, 173, 160);
+  --color-cell: rgba(238,228,218,.35);
+  --color-text: rgb(119, 110, 101);
 }
-
-.container {
-    max-width: var(--width-table);
-    margin: 0 auto;
-}
-
-body {
-    color: var(--color-text);
-}
+  

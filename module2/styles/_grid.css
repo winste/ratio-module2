@@ -1,0 +1,5 @@
+.grid {
+    color: var(--color-grid);
+    height: 450px;
+    width: 450px;
+}
