@@ -1,6 +1,4 @@
-.grid {
-    display: flex;
-    flex-wrap: wrap;
+.table {
     height: 440px;
     width: 440px;
     padding: 10PX;
@@ -9,17 +7,11 @@
     border-radius: 6px;
 }
 
-.grid__cell {
+.table__cell {
     width: 97.5px;
     height: 97.5px;
-    margin-right: 10px;
-    margin-bottom: 10px;
     background-color: var(--color-cell);
     border-radius: 6px;
-}
-
-.grid__cell:nth-child(4n+4) {
-    margin-right: 0px;
 }
 
 .c2{background-color:#eee3da;color:#776e65}
