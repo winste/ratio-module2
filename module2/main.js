@@ -1,5 +1,16 @@
-let tableArray;
-let size = 4;
+let rows = 4;
+let columns = 4;
+let grid = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
+];
+
+
+window.onload = function() {
+    createTable();
+}
 
 
 function createTable() {
@@ -7,26 +18,16 @@ function createTable() {
     table.className = 'table';
     table.setAttribute('id', 'table');
     document.body.prepend(table);
-}
 
-function createRows() {
-    tableArray = [];
-    var table = document.getElementById('table');
-    for (let i = 0; i < size; i++) {
-        let tr = document.createElement('tr');
-        tr.className = 'table__row';
-        let trArray = [];
-        for (let j = 0; j < size; j++) {
-            let td = document.createElement('td');
-            td.className = 'table__cell';
-            tr.appendChild(td);
-            trArray.push(td);
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+            
+            let cell = document.createElement('div');
+            cell.className = 'table__cell';
+            table.append(cell);
         }
-        tableArray.push(trArray);
-        table.appendChild(tr);
-        console.log(tableArray);
     }
 }
 
-createTable();
-createRows();
+
+

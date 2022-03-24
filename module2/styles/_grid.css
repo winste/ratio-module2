@@ -1,7 +1,10 @@
 .table {
-    height: 440px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    height: 438px;
     width: 440px;
-    padding: 10PX;
     margin: 0 auto;
     background-color: var(--color-grid);
     border-radius: 6px;
