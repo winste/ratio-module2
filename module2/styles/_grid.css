@@ -12,9 +12,11 @@
 }
 
 .table__cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 97.5px;
     height: 97.5px;
-    text-align: center;
     background-color: var(--color-cell);
     border-radius: 6px;
 }

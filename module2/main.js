@@ -20,12 +20,14 @@ function createTable() {
   table.setAttribute('id', 'table');
   document.body.prepend(table);
 
-  for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < columns; j++) {
+  for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < columns; c++) {
           
           let cell = document.createElement('div');
-          cell.className = 'table__cell';
-          cell.id = i.toString() + "-" + j.toString();
+          cell.id = `${r}-${c}`;
+          
+          let num = grid[r][c];
+          changeClass(cell, num);
           table.append(cell);
       }
   }
@@ -33,37 +35,55 @@ function createTable() {
   generateNum();
 }
 
+function changeClass(cell, num) {
+  cell.innerText = "";
+  cell.classList.value = ""; //clear the classList
+  cell.classList.add('table__cell');
+  if (num > 0) {
+    cell.innerText = num.toString();
+    cell.classList.add(`c${num}`);
+  }
+}
+
 
  function generateNum() {
-  let x, y;
   do {
-    x = Math.floor(Math.random() * rows), 
-    y = Math.floor(Math.random() * columns);
-    let cellInner = grid[y][x];
+    let x = Math.floor(Math.random() * rows); 
+    let y = Math.floor(Math.random() * columns);
 
-    if (cellInner == 0) {
-      let genarateCell = document.getElementById(y.toString() + "-" + x.toString());
-      cellInner = Math.random() >= 0.9 ? genarateCell.innerText = 4 : genarateCell.innerText = 2;
-      genarateCell.classList.add("c"+cellInner); 
+    if (grid[y][x] == 0) {
+      let genarateCell = document.getElementById(`${y}-${x}`);
+
+      if (grid[y][x] = Math.random() >= 0.9) {
+        genarateCell.innerText = 4;
+        grid[y][x] = 4;
+      }
+      else {
+        genarateCell.innerText = 2;
+        grid[y][x] = 2;
+      }
+
+      changeClass(genarateCell, grid[y][x]);
       break;
     }
   } while (true);
 }
 
 
-function filterZero(row) {
-  return row.filter(num => num != 0);
-}
 
   
 function slide(row) {
+
+  function filterZero(row) {
+    return row.filter(num => num != 0);
+  }
   row = filterZero(row);
 
-  for (let i = 0; i < row.length-1; i++) {
-    if (row[i] == row[i+1]) {
-      row[i] *= 2;
-      row[i+1] = 0;
-      score += row[i];
+  for (let r = 0; r < row.length-1; r++) {
+    if (row[r] == row[r+1]) {
+      row[r] *= 2;
+      row[r+1] = 0;
+      score += row[r];
     }
   }
 
@@ -74,44 +94,70 @@ function slide(row) {
   return row;
 }
 
-// function slide(array) {
+function slideLeft() {
+  for (let r = 0; r < rows; r++) {
+      let row = grid[r];
+      row = slide(row);
+      grid[r] = row;
+      for (let c = 0; c < columns; c++){
+          let cell = document.getElementById(`${r}-${c}`);
+          changeClass(cell, grid[r][c]);
+      }
+  }
+}
+
+function slideRight() {
+  for (let r = 0; r < rows; r++) {
+      let row = grid[r];
+      row = row.reverse();
+      row = slide(row);
+      grid[r] = row.reverse();
+      for (let c = 0; c < columns; c++){
+          let cell = document.getElementById(`${r}-${c}`);
+          changeClass(cell, grid[r][c]);
+      }
+  }
+}
+
+function slideUp() {
+  for (let c = 0; c < columns; c++) {
+      let row = [grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
+      row = slide(row);
+      for (let r = 0; r < columns; r++){
+          grid[r][c] = row[r];
+          let cell = document.getElementById(`${r}-${c}`);
+          changeClass(cell, grid[r][c]);
+      }
+  }
+}
+
+document.addEventListener('keyup', (e) => {
+  if (e.code == "ArrowLeft") {
+      slideLeft();
+      generateNum();
+  }
+  else if (e.code == "ArrowRight") {
+    slideRight();
+    generateNum();
+}
+else if (e.code == "ArrowUp") {
+  slideUp();
+  generateNum();
+
+}
+}
+)
 
 
 
-//   array = filterEmpty(array);
-// }
 
-// function slide(row) {
-//   //[0, 2, 2, 2] 
-//   row = filterZero(row); //[2, 2, 2]
-//   for (let i = 0; i < row.length-1; i++){
-//       if (row[i] == row[i+1]) {
-//           row[i] *= 2;
-//           row[i+1] = 0;
-//           score += row[i];
-//       }
-//   } //[4, 0, 2]
-//   row = filterZero(row); //[4, 2]
-//   //add zeroes
-//   while (row.length < columns) {
-//       row.push(0);
-//   } //[4, 2, 0, 0]
-//   return row;
-// }
 
-// function slideRight() {
-//   for (let r = 0; r < rows; r++) {
-//       let row = board[r];         //[0, 2, 2, 2]
-//       row.reverse();              //[2, 2, 2, 0]
-//       row = slide(row)            //[4, 2, 0, 0]
-//       board[r] = row.reverse();   //[0, 0, 2, 4];
-//       for (let c = 0; c < columns; c++){
-//           let tile = document.getElementById(r.toString() + "-" + c.toString());
-//           let num = board[r][c];
-//           updateTile(tile, num);
-//       }
-//   }
-// }
+
+
+
+
+
+
 
 
 
