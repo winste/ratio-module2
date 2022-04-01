@@ -47,6 +47,9 @@ function changeClass(cell, num) {
 
 
  function generateNum() {
+  if (!hasEmptyTile()) {
+    return;
+}
   do {
     let x = Math.floor(Math.random() * rows); 
     let y = Math.floor(Math.random() * columns);
@@ -106,6 +109,7 @@ function slideLeft() {
   }
 }
 
+
 function slideRight() {
   for (let r = 0; r < rows; r++) {
       let row = grid[r];
@@ -131,27 +135,56 @@ function slideUp() {
   }
 }
 
-document.addEventListener('keyup', (e) => {
-  if (e.code == "ArrowLeft") {
-      slideLeft();
-      generateNum();
+function slideDown() {
+  for (let c = 0; c < columns; c++) {
+      let row = [grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
+      row.reverse();
+      row = slide(row);
+      row.reverse();
+      
+      for (let r = 0; r < rows; r++){
+        grid[r][c] = row[r];
+          let cell = document.getElementById(`${r}-${c}`);
+          changeClass(cell, grid[r][c]);
+      }
   }
-  else if (e.code == "ArrowRight") {
-    slideRight();
-    generateNum();
 }
-else if (e.code == "ArrowUp") {
-  slideUp();
-  generateNum();
 
+
+
+function hasEmptyTile() {
+  for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < columns; c++) {
+          if (grid[r][c] == 0) { 
+              return true;
+          }
+      }
+  }
+  return false;
 }
-}
-)
 
-
-
-
-
+document.addEventListener('keyup', (e) => {
+  let code = e.code;
+  switch (code) {
+    case 'ArrowLeft': 
+      slideLeft(); 
+      generateNum();
+      break;
+    case 'ArrowRight': 
+      slideRight(); 
+      generateNum();
+      break;
+    case 'ArrowUp': 
+      slideUp(); 
+      generateNum();
+      break;
+    case 'ArrowDown': 
+      slideDown(); 
+      generateNum();
+      break;
+    default: return;
+  }
+})
 
 
 
