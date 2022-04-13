@@ -2,9 +2,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 10px;
-    height: 438px;
-    width: 440px;
+    padding: 15px;
+    height: 500px;
+    width: 500px;
     margin: 0 auto;
     font-size: 55px;
     background-color: var(--color-grid);
@@ -15,20 +15,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 97.5px;
-    height: 97.5px;
+    width: 107px;
+    height: 107px;
     background-color: var(--color-cell);
+    font-weight: bold;
     border-radius: 6px;
+}
+
+.table__cell--generate {
+    border: 5px solid green;
 }
 
 .c2{background-color:#eee3da;color:#776e65}
 .c4{background-color:#ede0c8;color:#776e65}
-.c8{background-color:#f2b179}
-.c16{background-color:#f59563}
-.c32{background-color:#f67c5f}
-.c64{background-color:#f65e3b}
-.c128{background-color:#edcf72}
-.c256{background-color:#edcc61}
-.c512{background-color:#9c0}
-.c1024{background-color:#33b5e5;font-size:30px;color:#FFF;}
-.c2048{background-color:#09c;font-size:30px;color:#FFF;}
+.c8{background-color:#f2b179;color: #FFF}
+.c16{background-color:#f59563;color: #FFF}
+.c32{background-color:#f67c5f;color: #FFF}
+.c64{background-color:#f65e3b;color: #FFF}
+.c128{background-color:#edcf72;color: #FFF;font-size: 45px}
+.c256{background-color:#edcc61;color: #FFF;font-size: 45px}
+.c512{background-color:#9c0;color: #FFF;font-size: 45px}
+.c1024{background-color:#33b5e5;font-size:30px;color:#FFF;font-size: 45px}
+.c2048{background-color:#09c;font-size:30px;color:#FFF;;font-size: 45px}
