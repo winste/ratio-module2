@@ -61,7 +61,6 @@ function changeClass(cell, number) {
         grid[y][x] = 2;
       }
 
-      // changeClass(generateCell, grid[y][x]);
       generateCell.className = `table__cell table__cell--generate c${grid[y][x]}`;
       break;
     }
@@ -100,18 +99,6 @@ function moveLeft() {
   }
 }
 
-
-
-function slideLeft() {
-  let oldGrid = grid.slice(0);
-  moveLeft();
-  decorate();
-  return (oldGrid.join() != grid.join());
-}
-
-
-
-
 function decorate() {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j ++) {
@@ -128,75 +115,43 @@ function reverseRows() {
 }
 
 
+function turnRows() {
+  let prevGrid = grid.slice(0);
+  for (let i = 0; i < 4; i++) {   
+    grid[i] = [prevGrid[0][i], prevGrid[1][i], prevGrid[2][i], prevGrid[3][i]];
+  }
+} 
+
+
+function slideLeft() {
+  moveLeft();
+  decorate();
+}
+
+
 function slideRight() {
-  let oldGrid = grid.slice(0);
   reverseRows();
   moveLeft();
   reverseRows();
   decorate();
-  return (oldGrid.join() != grid.join());
 }
-
-
-
-
-
-function turnRows() {
-  let prevGrid = grid.slice(0);
-  console.log(prevGrid.join());
-  for (let i = 0; i < 4; i++) {   
-    for (let j = 0; j < 4; j++) {
-      grid[i][j] = prevGrid[j][i];
-    }
-  }
-  console.log(grid.join());
-} 
-
 
 function slideUp() {
   turnRows();
+  moveLeft();
+  turnRows()
   decorate();
 }
 
-// function slideUp() {
-//   let change = false;
-//   for (let c = 0; c < 4; c++) {
-//     let oldRow = [grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
-//     let row = [grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
-//     row = slide(row);
-//     if (oldRow.join('') != row.join('')) change = true;
-//     for (let r = 0; r < 4; r++){
-//         grid[r][c] = row[r];
-//         changeClass(document.getElementById(`${r}-${c}`), grid[r][c]);
-//     }
-//   }
-//   if (change) generateNum();
-// }
-
-
 function slideDown() {
-  let change = false;
-  for (let c = 0; c < 4; c++) {
-    let oldRow =[grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
-    let row = [grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
-
-    row.reverse();
-    row = slide(row);
-    row.reverse();
-    if (oldRow.join('') != row.join('')) change = true;
-    for (let r = 0; r < 4; r++){
-      grid[r][c] = row[r];
-      changeClass(document.getElementById(`${r}-${c}`), grid[r][c]);
-    }
-  }
-  if (change) generateNum();
+  turnRows();
+  reverseRows();
+  moveLeft();
+  reverseRows();
+  turnRows()
+  decorate();
 }
 
-// function checkChanges(moveFunction) {
-//   let oldGrid = grid.slice(0);
-//   moveFunction();
-//   return (oldGrid.join() != grid.join());
-// }
 
 function hasEmptyCell() {
   for (let r = 0; r < 4; r++) {
@@ -235,24 +190,22 @@ function isGameOver() {
   return true;
 }
 
+function checkChange(previousGrid, actualGrid) {
+  return (previousGrid.join() != actualGrid.join());
+}
+
 function game(e) {
-  let change = false;
+  let prevGrid = grid.slice(0);
+
   switch (e.code) {
-    case 'ArrowLeft': 
-        if (slideLeft()) change = true;
-        break;
-    case 'ArrowRight': 
-        if (slideRight()) change = true;
-        break;
-    case 'ArrowUp': 
-        slideUp(); 
-        break;
-    case 'ArrowDown': 
-        slideDown(); 
-        break;
+    case 'ArrowLeft': slideLeft(); break;
+    case 'ArrowRight': slideRight(); break;
+    case 'ArrowUp':slideUp(); break;
+    case 'ArrowDown': slideDown();break;
     default: return;
   }
-  if (change) generateNum();
+
+  if  (checkChange(prevGrid, grid)) generateNum();
 
   if (isGameWon()) alert('You won!');
   if (isGameOver()) alert('You lose!')
