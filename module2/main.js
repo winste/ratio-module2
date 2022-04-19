@@ -8,7 +8,16 @@ let score = 0;
 
 
 window.onload = function() {
-    createTable();
+  createHeadline();
+  createTable();
+}
+
+
+function createHeadline() {
+  let scoreBlock = document.createElement('div');
+  scoreBlock.className = "score";
+  scoreBlock.id = 'score';
+  document.body.prepend(scoreBlock);
 }
 
 
@@ -16,13 +25,13 @@ function createTable() {
   let table = document.createElement('table');
   table.className = 'table';
   table.id = 'table';
-  document.body.prepend(table);
+  document.body.append(table);
 
-  for (let r = 0; r < 4; r++) {
-      for (let c = 0; c < 4; c++) {
+  for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
           let cell = document.createElement('div');
-          cell.id = `${r}-${c}`;
-          let num = grid[r][c];
+          cell.id = `${i}-${j}`;
+          let num = grid[i][j];
           changeClass(cell, num);
           table.append(cell);
       }
@@ -30,6 +39,7 @@ function createTable() {
   generateNum();
   generateNum();
 }
+
 
 function changeClass(cell, number) {
   cell.innerText = "";
@@ -51,7 +61,6 @@ function changeClass(cell, number) {
 
     if (grid[y][x] == 0) {
       let generateCell = document.getElementById(`${y}-${x}`);
-
       if (Math.random() >= 0.9) {
         generateCell.innerText = 4;
         grid[y][x] = 4;
@@ -60,16 +69,26 @@ function changeClass(cell, number) {
         generateCell.innerText = 2;
         grid[y][x] = 2;
       }
-
       generateCell.className = `table__cell table__cell--generate c${grid[y][x]}`;
       break;
     }
+
   } while (true);
 
   return true;
 }
 
-  
+
+function hasEmptyCell() {
+  for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+          if (grid[i][j] == 0) return true;
+      }
+  }
+  return false;
+}  
+
+
 function slide(row) {
 
   function filterZero(row) {
@@ -93,21 +112,6 @@ function slide(row) {
 }
 
 
-function moveLeft() {
-  for (let i = 0; i < 4; i++) {
-    grid[i] = slide(grid[i]);
-  }
-}
-
-function decorate() {
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j ++) {
-      changeClass(document.getElementById(`${i}-${j}`), grid[i][j]);
-    }
-  }
-}
-
-
 function reverseRows() {
   for (let i = 0; i < 4; i++) {
     grid[i] = grid[i].reverse();
@@ -123,44 +127,42 @@ function turnRows() {
 } 
 
 
+function decorateCell() {
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j ++) {
+      changeClass(document.getElementById(`${i}-${j}`), grid[i][j]);
+    }
+  }
+}
+
+
 function slideLeft() {
-  moveLeft();
-  decorate();
+  for (let i = 0; i < 4; i++) {
+    grid[i] = slide(grid[i]);
+  }
 }
 
 
 function slideRight() {
   reverseRows();
-  moveLeft();
+  slideLeft();
   reverseRows();
-  decorate();
 }
+
 
 function slideUp() {
   turnRows();
-  moveLeft();
+  slideLeft();
   turnRows()
-  decorate();
 }
+
 
 function slideDown() {
   turnRows();
-  reverseRows();
-  moveLeft();
-  reverseRows();
+  slideRight();
   turnRows()
-  decorate();
 }
 
-
-function hasEmptyCell() {
-  for (let r = 0; r < 4; r++) {
-      for (let c = 0; c < 4; c++) {
-          if (grid[r][c] == 0) return true;
-      }
-  }
-  return false;
-}
 
 function isGameWon() {
   for (let i = 0; i < 4; i++) {
@@ -172,6 +174,7 @@ function isGameWon() {
   }
   return false;
 }
+
 
 function isGameOver() {
   for (let i = 0; i < 4; i++) {
@@ -190,22 +193,20 @@ function isGameOver() {
   return true;
 }
 
-function checkChange(previousGrid, actualGrid) {
-  return (previousGrid.join() != actualGrid.join());
-}
 
 function game(e) {
-  let prevGrid = grid.slice(0);
+  let previousGrid = grid.slice(0);
 
   switch (e.code) {
     case 'ArrowLeft': slideLeft(); break;
     case 'ArrowRight': slideRight(); break;
-    case 'ArrowUp':slideUp(); break;
+    case 'ArrowUp': slideUp(); break;
     case 'ArrowDown': slideDown();break;
     default: return;
   }
+  decorateCell();
 
-  if  (checkChange(prevGrid, grid)) generateNum();
+  if  ( previousGrid.join() != grid.join() ) generateNum();
 
   if (isGameWon()) alert('You won!');
   if (isGameOver()) alert('You lose!')
