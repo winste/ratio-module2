@@ -42,8 +42,21 @@
     border-radius: 6px;
 }
 
-.table__cell--generate {
-    border: 5px solid green;
+
+
+@keyframes emergenceCell {
+    from {
+      transform: scale(0);
+    }
+  
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  .table__cell--generate {
+    animation-name: emergenceCell;
+    animation-duration: .2s;
 }
 
 .c2{background-color:#eee3da;color:#776e65}
