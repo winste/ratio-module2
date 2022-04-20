@@ -7,6 +7,14 @@ let grid = [
 let score = 0;
 
 
+// function createArray(num) {
+//   grid = new Array(num);
+//   for (let i = 0; i < grid.length; i++) {
+//     grid[i] = new Array(num);
+//   }
+// }
+
+
 window.onload = function() {
   createHeadline();
   createTable();
@@ -14,16 +22,33 @@ window.onload = function() {
 
 
 function createHeadline() {
+  let heading = document.createElement('div');
+  heading.className = "heading container";
+  document.body.prepend(heading);
+
   let scoreBlock = document.createElement('div');
-  scoreBlock.className = "score";
-  scoreBlock.id = 'score';
-  document.body.prepend(scoreBlock);
+  scoreBlock.className = "score"
+  
+
+  let scoreTitle = document.createElement('p');
+  scoreTitle.className = 'score__title';
+  scoreTitle.innerHTML = 'score';
+  scoreBlock.prepend(scoreTitle);
+
+  let scoreValue = document.createElement('p');
+  scoreValue.className = 'score__value';
+  scoreValue.id = 'score-value';
+  scoreValue.innerHTML = score;
+  scoreBlock.append(scoreValue);
+  
+  heading.append(scoreBlock);
+  
 }
 
 
 function createTable() {
   let table = document.createElement('table');
-  table.className = 'table';
+  table.className = 'table container';
   table.id = 'table';
   document.body.append(table);
 
@@ -101,6 +126,8 @@ function slide(row) {
       row[i] *= 2;
       row[i+1] = 0;
       score += row[i]; 
+      let counter = document.getElementById('score-value');
+      counter.innerHTML = score;
     }
   }
 
@@ -208,8 +235,8 @@ function game(e) {
 
   if  ( previousGrid.join() != grid.join() ) generateNum();
 
-  if (isGameWon()) alert('You won!');
-  if (isGameOver()) alert('You lose!')
+  if (isGameWon()) alert('Game won!');
+  if (isGameOver()) alert('Game over!')
 }
 
 document.addEventListener('keyup', game);
