@@ -16,6 +16,7 @@
   --color-grid: rgb(187, 173, 160);
   --color-cell: rgba(238,228,218,.35);
   --color-text: rgb(119, 110, 101);
+  --grid-size: 625px;
 }
 
 body {

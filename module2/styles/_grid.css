@@ -3,16 +3,17 @@
 }
 
 .heading {
-    width: 500px;
+    width: var(--grid-size);
     margin-bottom: 40px;
 }
 
 .score {
     display: inline-block;
     text-align: center;
-    font-size: 18px;
+    font-size: 24px;
     color: white;
     font-weight: bold;
+    text-transform: uppercase;
     padding: 15px 25px;
     margin-top: 8px;
     border-radius: 3px;
@@ -24,8 +25,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 15px;
-    height: 500px;
-    width: 500px;
+    height: var(--grid-size);
+    width: var(--grid-size);
     font-size: 55px;
     background-color: var(--color-grid);
     border-radius: 6px;

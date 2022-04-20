@@ -1,10 +1,12 @@
 let grid = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0]
 ];
 let score = 0;
+let countLines = 5;
 
 
 // function createArray(num) {
@@ -52,8 +54,8 @@ function createTable() {
   table.id = 'table';
   document.body.append(table);
 
-  for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
+  for (let i = 0; i < countLines; i++) {
+      for (let j = 0; j < countLines; j++) {
           let cell = document.createElement('div');
           cell.id = `${i}-${j}`;
           let num = grid[i][j];
@@ -81,8 +83,8 @@ function changeClass(cell, number) {
   if (!hasEmptyCell()) return;
 
   do {
-    let x = Math.floor(Math.random() * 4); 
-    let y = Math.floor(Math.random() * 4);
+    let x = Math.floor(Math.random() * countLines); 
+    let y = Math.floor(Math.random() * countLines);
 
     if (grid[y][x] == 0) {
       let generateCell = document.getElementById(`${y}-${x}`);
@@ -105,8 +107,8 @@ function changeClass(cell, number) {
 
 
 function hasEmptyCell() {
-  for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
+  for (let i = 0; i < countLines; i++) {
+      for (let j = 0; j < countLines; j++) {
           if (grid[i][j] == 0) return true;
       }
   }
@@ -132,7 +134,7 @@ function slide(row) {
   }
 
   row = filterZero(row);
-  while (row.length < 4) {
+  while (row.length < 5) {
     row.push(0);
   }
   return row;
@@ -140,7 +142,7 @@ function slide(row) {
 
 
 function reverseRows() {
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < countLines; i++) {
     grid[i] = grid[i].reverse();
   }
 }
@@ -148,15 +150,15 @@ function reverseRows() {
 
 function turnRows() {
   let prevGrid = grid.slice(0);
-  for (let i = 0; i < 4; i++) {   
-    grid[i] = [prevGrid[0][i], prevGrid[1][i], prevGrid[2][i], prevGrid[3][i]];
+  for (let i = 0; i < countLines; i++) {   
+    grid[i] = [prevGrid[0][i], prevGrid[1][i], prevGrid[2][i], prevGrid[3][i], prevGrid[4][i]];
   }
 } 
 
 
 function decorateCell() {
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j ++) {
+  for (let i = 0; i < countLines; i++) {
+    for (let j = 0; j < countLines; j ++) {
       changeClass(document.getElementById(`${i}-${j}`), grid[i][j]);
     }
   }
@@ -164,7 +166,7 @@ function decorateCell() {
 
 
 function slideLeft() {
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < countLines; i++) {
     grid[i] = slide(grid[i]);
   }
 }
@@ -192,8 +194,8 @@ function slideDown() {
 
 
 function isGameWon() {
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
+  for (let i = 0; i < countLines; i++) {
+    for (let j = 0; j < countLines; j++) {
       if (grid[i][j] == 2048) {
         return true;
       }
@@ -204,8 +206,8 @@ function isGameWon() {
 
 
 function isGameOver() {
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
+  for (let i = 0; i < countLines; i++) {
+    for (let j = 0; j < countLines; j++) {
       if (grid[i][j] == 0) {
         return false;
       }
