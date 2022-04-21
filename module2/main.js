@@ -25,13 +25,20 @@ window.onload = function() {
 
 function createHeadline() {
   let heading = document.createElement('div');
-  heading.className = "heading container";
+  heading.className = 'heading container';
   document.body.prepend(heading);
 
-  let scoreBlock = document.createElement('div');
-  scoreBlock.className = "score"
-  
+  let title = document.createElement('h1');
+  title.className = 'heading__title';
+  title.innerHTML = '2048';
+  heading.prepend(title);
 
+  let controBlock = document.createElement('div');
+  controBlock.className = 'heading__controls';
+
+  let scoreBlock = document.createElement('div');
+  scoreBlock.className = 'score';
+  
   let scoreTitle = document.createElement('p');
   scoreTitle.className = 'score__title';
   scoreTitle.innerHTML = 'score';
@@ -42,9 +49,17 @@ function createHeadline() {
   scoreValue.id = 'score-value';
   scoreValue.innerHTML = score;
   scoreBlock.append(scoreValue);
-  
-  heading.append(scoreBlock);
-  
+
+  let resetButton = document.createElement('button');
+  resetButton.className = 'button-reset';
+  resetButton.innerHTML = 'New Game';
+  resetButton.onclick = function() {
+    window.location.reload();
+  }
+
+  controBlock.append(scoreBlock);
+  controBlock.append(resetButton);
+  heading.append(controBlock);
 }
 
 
@@ -211,10 +226,10 @@ function isGameOver() {
       if (grid[i][j] == 0) {
         return false;
       }
-      if (i !== 3 && grid[i][j] === grid[i + 1][j]) {
+      if (i !== 4 && grid[i][j] === grid[i + 1][j]) {
         return false;
       }
-      if (j !== 3 && grid[i][j] === grid[i][j + 1]) {
+      if (j !== 4 && grid[i][j] === grid[i][j + 1]) {
         return false;
       }
     }
@@ -236,7 +251,6 @@ function game(e) {
   decorateCell();
 
   if  ( previousGrid.join() != grid.join() ) generateNum();
-
   if (isGameWon()) alert('Game won!');
   if (isGameOver()) alert('Game over!')
 }
