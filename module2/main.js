@@ -53,6 +53,7 @@ function createHeadline() {
   let resetButton = document.createElement('button');
   resetButton.className = 'button-reset';
   resetButton.innerHTML = 'New Game';
+  
   resetButton.onclick = function() {
     window.location.reload();
   }
@@ -251,8 +252,16 @@ function game(e) {
   decorateCell();
 
   if  ( previousGrid.join() != grid.join() ) generateNum();
-  if (isGameWon()) alert('Game won!');
-  if (isGameOver()) alert('Game over!')
+  if (isGameWon()) {
+    setTimeout(alert('Game won!'),1000);
+  } 
+
+
+    if (isGameOver()) {
+    setTimeout(function() {
+      alert('Game over');
+    }, 1000);
+    }
 }
 
 document.addEventListener('keyup', game);

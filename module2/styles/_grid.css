@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   height: 70px;
-  min-width: 250px;
+  min-width: 230px;
 }
 
 .score {
@@ -92,6 +92,38 @@
     animation-name: emergenceCell;
     animation-duration: .2s;
 }
+
+@keyframes movingCell {
+  from {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.table__cell--generate {
+  animation-name: emergenceCell;
+  animation-duration: .2s;
+}
+
+/* @include keyframes(pop) {
+  0% {
+    @include transform(scale(0));
+  }
+
+  50% {
+    @include transform(scale(1.2));
+  }
+
+  100% {
+    @include transform(scale(1));
+  }
+} */
+
 
 .c2{background-color:#eee3da;color:#776e65}
 .c4{background-color:#ede0c8;color:#776e65}
