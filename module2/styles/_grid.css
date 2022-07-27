@@ -1,36 +1,47 @@
 .container {
-   margin: 0 auto; 
+  margin: 0 auto;
 }
 
 .heading {
+  max-width: var(--grid-size);
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.heading__main {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: var(--grid-size);
-  margin-top: 60px;
-  margin-bottom: 40px;
 }
 
 .heading__title {
   font-size: 80px;
 }
 
-.heading__controls {
+.heading__about {
   display: flex;
   justify-content: space-between;
-  height: 70px;
-  min-width: 230px;
+  align-items: center;
 }
 
-.score {
-    display: inline-block;
-    text-align: center;
-    font-size: 16px;
-    color: white;
-    text-transform: uppercase;
-    padding: 15px 25px;
-    border-radius: 3px;
-    background: #bbada0;
+.heading__score {
+  display: flex;
+  height: 60px;
+}
+
+.score__count {
+  margin-right: 5px;
+  text-align: center;
+  font-size: 13px;
+  color: white;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background: #bbada0;
+}
+
+.score__title {
+  font-weight: bold;
+  color: rgb(238, 228, 218);
 }
 
 .score__value {
@@ -39,10 +50,9 @@
 }
 
 .button-reset {
-  padding: 10px;
+  padding: 10px 30px;
   font-size: 16px;
   color: white;
-  text-transform: uppercase;
   font-weight: bold;
   background: #8f7a66;
   border-radius: 3px;
@@ -53,7 +63,7 @@
   background: #a38b75;
 }
 
-.table {
+.board {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -65,7 +75,7 @@
     border-radius: 6px;
 }
 
-.table__cell {
+.board__cell {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,54 +87,6 @@
 }
 
 
-
-@keyframes emergenceCell {
-    from {
-      transform: scale(0);
-    }
-  
-    to {
-      transform: scale(1);
-    }
-  }
-  
-  .table__cell--generate {
-    animation-name: emergenceCell;
-    animation-duration: .2s;
-}
-
-@keyframes movingCell {
-  from {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.table__cell--generate {
-  animation-name: emergenceCell;
-  animation-duration: .2s;
-}
-
-/* @include keyframes(pop) {
-  0% {
-    @include transform(scale(0));
-  }
-
-  50% {
-    @include transform(scale(1.2));
-  }
-
-  100% {
-    @include transform(scale(1));
-  }
-} */
-
-
 .c2{background-color:#eee3da;color:#776e65}
 .c4{background-color:#ede0c8;color:#776e65}
 .c8{background-color:#f2b179;color: #FFF}
@@ -134,5 +96,108 @@
 .c128{background-color:#edcf72;color: #FFF;font-size: 45px}
 .c256{background-color:#edcc61;color: #FFF;font-size: 45px}
 .c512{background-color:#9c0;color: #FFF;font-size: 45px}
-.c1024{background-color:#33b5e5;font-size:30px;color:#FFF;font-size: 45px}
-.c2048{background-color:#09c;font-size:30px;color:#FFF;;font-size: 45px}
+.c1024{background-color:#33b5e5;font-size:30px;color:#FFF}
+.c2048{background-color:#09c;font-size:30px;color:#FFF}
+
+@media (max-width: 680px) {
+  .heading {
+    max-width: 400px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .heading__title {
+    font-size: 60px;
+  }
+  
+  .heading__controls {
+    height: 70px;
+    min-width: 230px;
+  }
+  
+  .score {
+      text-align: center;
+      font-size: 16px;
+      color: white;
+      text-transform: uppercase;
+      padding: 15px 25px;
+      border-radius: 3px;
+      background: #bbada0;
+  }
+  
+  .score__title {
+    font-weight: bold;
+    color: rgb(238, 228, 218);
+  }
+  
+  .score__value {
+      font-weight: bold;
+      font-size: 24px;
+  }
+  
+  .button-reset {
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: #8f7a66;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .button-reset:hover {
+    background: #a38b75;
+  }
+
+
+  .board {
+    height: 400px;
+    width: 400px;
+    font-size: 30px;
+    border-radius: 6px;
+  }
+  .board__cell {
+      width: 67px;
+      height: 67px;
+  }
+}
+
+@media (max-width: 450px) {
+  
+  .board {
+    height: 280px;
+    width: 280px;
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .board__cell {
+      width: 45px;
+      height: 45px;
+  }
+}
+
+.timer {
+  min-width: 140px;
+  height: 60px;
+}
+
+.timer__block {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+.timer__hours,
+.timer__minutes,
+.timer__seconds,
+.timer__milliseconds{
+  width: 32px;
+}
+
+.timer__milliseconds {
+  font-size: 12px;
+  font-weight: normal;
+  color: rgb(238, 228, 218);
+}
