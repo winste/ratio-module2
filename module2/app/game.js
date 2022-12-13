@@ -1,168 +1,110 @@
-function isGameWon() {
-  for (let i = 0; i < countLines; i++) {
-    for (let j = 0; j < countLines; j++) {
-      if (grid[i][j] == 2048) {
-        localStorage.setItem("timer-start", false);
-        clockStop();
-        getTimeInTheEnd();
-        removeListener(board,"pointerdown", mouseMove);
-        removeListener(document,"keyup", moveCell);
-        return true;
-      }
-    }
-  }
-  return false;
-}
+document.addEventListener("keyup", onePress);
 
+function onePress(e) {
+  let cellsBeforeMoving = grid.checkGridChange();
 
-function removeListener(doc, listener, func) {
-  doc.removeEventListener(`${listener}`, func);
-}
-
-
-function isGameOver() {
-  for (let i = 0; i < countLines; i++) {
-    for (let j = 0; j < countLines; j++) {
+  if (motion.transitionEnding || motion.transitionEnding === null) {
+    if (e.code) {
       if (
-        grid[i][j] == 0 ||
-        i !== 4 && grid[i][j] === grid[i + 1][j] ||
-        j !== 4 && grid[i][j] === grid[i][j + 1]
-        ) {
-        return false;
+        e.code == "ArrowUp" ||
+        e.code == "ArrowDown" ||
+        e.code == "ArrowLeft" ||
+        e.code == "ArrowRight"
+      ) {
+        timer.timerStart();
+        e.preventDefault();
+      }
+      switch (e.code) {
+        case "ArrowUp":
+          slideUp();
+          break;
+        case "ArrowDown":
+          slideDown();
+          break;
+        case "ArrowLeft":
+          slideLeft();
+          break;
+        case "ArrowRight":
+          slideRight();
+          break;
+        default:
+          return;
+      }
+    } else {
+      timer.timerStart();
+      switch (e) {
+        case "Up":
+          slideUp();
+          break;
+        case "Down":
+          slideDown();
+          break;
+        case "Left":
+          slideLeft();
+          break;
+        case "Right":
+          slideRight();
+          break;
       }
     }
+    let cellsAfterMoving = grid.checkGridChange();
+
+    if (cellsBeforeMoving !== cellsAfterMoving) grid.generateRandomCell();
+    gameEnd();
   }
-  return true;
 }
+
+function slideLeft() {
+  return motion.iterate(grid.getCellsByRows());
+}
+
+function slideRight() {
+  return  motion.iterate(grid.getCellsByRows().map((row) => [...row].reverse()));
+}
+
+function slideUp() {
+  return  motion.iterate(grid.getCellsByColumns());
+}
+
+function slideDown() {
+  return  motion.iterate(
+    grid.getCellsByColumns().map((columns) => [...columns].reverse())
+  );
+}
+
+function gameEnd() {
+  if (grid.gameIsWon()) {
+    gameEndingActions("Congratulations! You win! Play again?");
+    getTimeInTheEnd();
+  } 
+  else if (grid.gameIsLose()) {
+    gameEndingActions("Sorry! Game lose! Play again?");
+  }
+}
+
+function gameEndingActions(message) {
+  timer.clockStop();
+  board.removeEventListener("pointerdown", getStartPosition);
+  board.removeEventListener("touchstart", getStartPosition);
+  document.removeEventListener("keyup", onePress);
+  setTimeout(() => {
+    confirm(`${message}`) ? window.location.reload() : false;
+  }, 500);
+}
+
 
 
 function getTimeInTheEnd() {
-  let h = +document.getElementById('hours').innerHTML * 3600000;
-      m = +document.getElementById('minutes').innerHTML * 60000;
-      s = +document.getElementById('seconds').innerHTML * 1000;
-      ms = +document.getElementById('milliseconds').innerHTML;
+  let h = +document.getElementById("hours").innerHTML * 3600000;
+  m = +document.getElementById("minutes").innerHTML * 60000;
+  s = +document.getElementById("seconds").innerHTML * 1000;
+  ms = +document.getElementById("milliseconds").innerHTML;
 
   let totalTime = h + m + s + ms;
-  
-  if ( totalTime < localStorage.getItem('best-time') || localStorage.getItem('best-time') == null || localStorage.getItem('best-time') == '0') {
-    localStorage.setItem('best-time', totalTime);
-    let formattedTime = msToTime(totalTime);
-    document.getElementById('best-result').innerHTML = formattedTime;
+  let bestTime = localStorage.getItem("best-time");
+
+  if (totalTime < bestTime || bestTime == null || bestTime == "0") {
+    localStorage.setItem("best-time", totalTime);
+    document.getElementById("best-result").innerHTML = msToTime(totalTime);
   }
 }
-
-function msToTime(ms) {
-  let milliseconds = Math.floor((ms % 1000) / 100),
-      seconds = Math.floor((ms / 1000) % 60),
-      minutes = Math.floor((ms / (1000 * 60)) % 60),
-      hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
-
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-  return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-}
-
-
-let board = document.getElementById("board");
-const distanceThreshold = 60;
-
-let pDownX = null;
-let pDownY = null;
-let pMoveX = null;
-let pMoveY = null;
-
-
-function mouseMove(e) {
-  e.preventDefault();
-  pDownX = e.clientX;
-  pDownY = e.clientY;
-  board.addEventListener("pointermove", pointerMove);
-}
-
-board.addEventListener("pointerdown", mouseMove);
-
-function getDirection(pDownX, pMoveX, pDownY, pMoveY) {
-  let direction = null;
-
-  if (pMoveX - pDownX > distanceThreshold) {
-    direction = "R";
-  } else if (pDownX - pMoveX > distanceThreshold) {
-    direction = "L";
-  } else if (pMoveY - pDownY > distanceThreshold) {
-    direction = "D";
-  } else if (pDownY - pMoveY > distanceThreshold) {
-    direction = "U";
-  }
-  return direction;
-}
-
-function pointerMove(e) {
-  pMoveX = e.clientX;
-  pMoveY = e.clientY;
-  if (e.pressure > 0) {
-    let direction = getDirection(pDownX, pMoveX, pDownY, pMoveY);
-    if (direction !== null) {
-      moveCell(direction);
-      startClockByMouse();
-      board.removeEventListener("pointermove", pointerMove);
-    }
-  }
-}
-
-
-function moveCell(e) {
-  let previousGrid = grid.toString();
-
-  if (e.code) {
-    switch (e.code) {
-      case "ArrowLeft":
-        slideLeft();
-        break;
-      case "ArrowRight":
-        slideRight();
-        break;
-      case "ArrowUp":
-        slideUp();
-        break;
-      case "ArrowDown":
-        slideDown();
-        break;
-      default:
-        return;
-    }
-  }
-  else {
-    switch (e) {
-      case "L":
-        slideLeft();
-        break;
-      case "R":
-        slideRight();
-        break;
-      case "U":
-        slideUp();
-        break;
-      case "D":
-        slideDown();
-        break;
-      default:
-        return;
-    }
-  }
-  
-  if (previousGrid !== grid.toString()) {
-    decorateCell();
-    generateNum();
-    startClockByMouse();
-  }
-
-  if (isGameWon() || isGameOver()) {
-    confirm("Game won! Play again?") ? window.location.reload() : false;
-  }
-}
-
-document.addEventListener("keyup", moveCell);
-
-

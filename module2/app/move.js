@@ -1,74 +1,104 @@
-let score = 0;
+const motion = {
+  transitionEnding: null,
+  score: 0,
 
-function slide(row) {
-  function filterZero(row) {
-    return row.filter((num) => num != 0);
-  }
-  row = filterZero(row);
+  iterate: function(cells) {
+    cells.map((row) => {
+      for (let i = 0; i < row.length; i++) {
+        let cellFromMove = row[i];
+        let cellToMove = null;
+  
+        if (cellFromMove.tile === null) continue;
+  
+        for (let k = i - 1; k >= 0; k--) {
+          let nextCell = row[k];
+          if (nextCell.tile === null) {
+            cellToMove = nextCell;
+          } else if (cellFromMove.tile.innerText == nextCell.tile.innerText) {
+            cellToMove = nextCell;
+            break;
+          } else break;
+        }
+  
+        if (cellToMove !== null) {
+          this.moveCell(cellFromMove, cellToMove);
+        }
+      }
+    });
+  },
 
-  for (let i = 0; i < row.length - 1; i++) {
-    if (row[i] == row[i + 1]) {
-      row[i] *= 2;
-      row[i + 1] = 0;
-      score += row[i];
-      document.getElementById("score-value").innerHTML = score;
+  moveCell: function (fromCell, toCell) {
+    this.transitionEnding = false;
+    const promises = [];
+  
+    let fromMoveTile = fromCell.tile;
+    let toMoveTile = toCell.tile;
+  
+    promises.push(
+      new Promise((resolve) => {
+        fromMoveTile.addEventListener("transitionend", resolve, { once: true });
+      })
+    );
+  
+    if (toMoveTile === null) {
+      fromMoveTile.style.setProperty("--x", toCell.x);
+      fromMoveTile.style.setProperty("--y", toCell.y);
+      toCell.tile = fromMoveTile;
+      fromCell.tile = null;
+    } 
+
+    else if (fromMoveTile.innerText === toMoveTile.innerText) {
+      fromMoveTile.style.setProperty("--x", toCell.x);
+      fromMoveTile.style.setProperty("--y", toCell.y);
+      fromMoveTile.style.zIndex = "-111";
+  
+      setTimeout(() => {
+        fromMoveTile.style.opacity = "0";
+      }, 100);
+      setTimeout(() => {
+        document.getElementById("board").removeChild(fromMoveTile);
+      }, 500);
+  
+      toMoveTile.innerText *= 2;
+      toMoveTile.setAttribute("class", "tile tile__" + toMoveTile.innerText);
+      toMoveTile.animate(
+        [{ transform: "scale(1.2)" }, { transform: "scale(1)" }],
+        200
+      );
+  
+      fromCell.tile = null;
+      this.score += +toMoveTile.innerText;
+      document.getElementById("score-value").innerText = this.score;
+    }
+    if (promises.length > 0) {
+      return Promise.all(promises).then(() => this.transitionEnding = true);
     }
   }
-
-  row = filterZero(row);
-  while (row.length < 5) {
-    row.push(0);
-  }
-  return row;
 }
 
-function reverseRows() {
-  for (let i = 0; i < countLines; i++) {
-    grid[i] = grid[i].reverse();
-  }
-}
+function checkNearCells(cells) {
+  let checkMove;
+  for (let row of cells) {
+    let filterRow = row.map((cell) => cell.tile);
 
-function turnRows() {
-  let prevGrid = grid.slice(0);
-  for (let i = 0; i < countLines; i++) {
-    grid[i] = [
-      prevGrid[0][i],
-      prevGrid[1][i],
-      prevGrid[2][i],
-      prevGrid[3][i],
-      prevGrid[4][i],
-    ];
-  }
-}
-
-function decorateCell() {
-  for (let i = 0; i < countLines; i++) {
-    for (let j = 0; j < countLines; j++) {
-      changeClass(document.getElementById(`${i}-${j}`), grid[i][j]);
+    for (let i = 0; i < filterRow.length; i++) {
+      if (filterRow[i] != null && filterRow[i + 1] != null) {
+        if (filterRow[i].innerText == filterRow[i + 1].innerText)
+          checkMove = true;
+      }
     }
   }
+  return checkMove;
 }
 
-function slideLeft() {
-  for (let i = 0; i < countLines; i++) {
-    grid[i] = slide(grid[i]);
-  }
-}
-
-function slideRight() {
-  reverseRows();
-  slideLeft();
-  reverseRows();
-}
-
-function slideUp() {
-  turnRows();
-  slideLeft();
-  turnRows();
-}
-
-function slideDown() {
-  turnRows();
-  slideRight();
-  turnRows();
+function canMove() {
+  let checkLeft = checkNearCells(grid.getCellsByRows());
+  let checkRight = checkNearCells(
+    grid.getCellsByRows().map((row) => [...row].reverse())
+  );
+  let checkUp = checkNearCells(grid.getCellsByColumns());
+  let checkDown = checkNearCells(
+    grid.getCellsByColumns().map((columns) => [...columns].reverse())
+  );
+  return checkLeft || checkRight || checkUp || checkDown ? true : false;
 }

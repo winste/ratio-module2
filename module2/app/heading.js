@@ -1,144 +1,98 @@
-let getTimezone = () => Math.abs(new Date().getTimezoneOffset() * 60000);
-
-(function init() {
-  createHeadline();
-  timerCreate();
-  createAboutBlock();
-})();
-
-// class HTMLElement {
-//   #blockName;
-//   #className;
-//   #inner;
-//   #id;
-
-//   constructor (blockName, className, inner, id) {
-//     this.blockName = blockName;
-//     this.className = className;
-//     this.inner = inner;
-//     this.id = id;
-//   }
-//   get blockName() {
-//     return this.blockName;
-//   }
-//   get className() {
-//     return this.#className;
-//   }
-//   get inner() {
-//     return this.#inner;
-//   }
-//   get id() {
-//     return this.#id;
-//   }
-//   set blockName(value) {
-//     this.#blockName = value;
-//     if (value == null) return;
-//   }
-//   set className(value) {
-//     this.#blockName = value;
-//     if (value == null) return;
-//   }
-//   set inner(value) {
-//     this.#blockName = value;
-//     if (value == null) return;
-//   }
-//   set id(value) {
-//     this.#blockName = value;
-//     if (value == null) return;
-//   }
-//   // appendElement(parentsElement) {
-//   //   parentsElement.append(this.block);
-//   // }
-// }
-
-function createHTMLBlock(nameBlock, className, inner, id) {
-  let block = document.createElement(`${nameBlock}`);
-  block.className = `${className}`;
-  if (inner) block.innerHTML = `${inner}`;
-  if (id) block.id = `${id}`;
-  return block;
+function create(tag){
+	return document.createElement(tag);
 }
 
-function reloadPage() {
-  window.location.reload();
-  localStorage.setItem("timer-start", false);
+HTMLElement.prototype.appendTo = function(parent){
+	parent.appendChild(this);
+	return this;
+}
+
+HTMLElement.prototype.prependTo = function(parent){
+	parent.prepend(this);
+	return this;
+}
+
+HTMLElement.prototype.addClass = function(classValue){
+	this.className = classValue;
+	return this;
+}
+
+HTMLElement.prototype.addId = function(id){
+	this.id = id;
+	return this;
+}
+
+HTMLElement.prototype.content = function(content){
+	this.innerHTML = content;
+	return this;
 }
 
 
-function createHeadline() {
-  let heading = createHTMLBlock("div", "heading container");
-  document.body.prepend(heading);
-
-  let headingMainInfo = createHTMLBlock("div", "heading__main");
-  heading.prepend(headingMainInfo);
-
-  let title = createHTMLBlock("h1", "heading__title", "2048");
-  let scoreBlock = createHTMLBlock("div", "heading__score score");
-
-  let scoreCount = createHTMLBlock("div", "score__count");
-  let scoreTitle = createHTMLBlock("p", "score__title", "score");
-  let scoreValue = createHTMLBlock("p", "score__value", "0", "score-value");
-  scoreCount.append(scoreTitle, scoreValue);
-
-  let bestScoreCount = createHTMLBlock("div", "score__count");
-  let bestScoreTitle = createHTMLBlock("div", "score__title", "best time");
-
-  let bestTimeValue = createHTMLBlock(
-    "p",
-    "score__value",
-    `${
-      localStorage.getItem("best-time")
-        ? localStorage.getItem("best-time")
-        : 0
-    }`,
-    "best-result"
-  );
-  bestScoreCount.append(bestScoreTitle, bestTimeValue);
-
-  scoreBlock.append(scoreCount, bestScoreCount);
-  headingMainInfo.append(title, scoreBlock);
+const createHeadline = () => {
+  const heading = create("section").addClass('heading container').prependTo(document.querySelector("body"));
+      title = create("h1").addClass('heading__title').content('2048').appendTo(heading);
+    
+      aboutContainer = create("div").addClass("heading__about").appendTo(heading);
+      aboutText = create("p").addClass("heading__about-text").content("Join the tiles, get to 2048!").appendTo(aboutContainer);
+      aboutText2 = create("p").addClass("heading__about-text").content("When two tiles slide into each other, they merge into one!").appendTo(aboutContainer);
 }
 
-function createAboutBlock() {
-  let aboutInfo = createHTMLBlock("div", "heading__about");
-  let aboutText = createHTMLBlock(
-    "div",
-    "heading__about-text",
-    "<p class = heading__about-text>Join the tiles, get to <b>2048</b>!</p><p class = heading__about-text>Once you shift the cells, time will go!</p>"
-  );
-  aboutInfo.append(aboutText);
-  document.querySelector(".heading").append(aboutInfo);
+const createTimer = () => {
+  const headlineResult = create("div").addClass("heading__result").appendTo(document.querySelector(".heading"));
+      timeBlock = create("div").addClass("heading__time").appendTo(headlineResult);
 
-  let resetButton = createHTMLBlock(
-    "button",
-    "button button-reset",
-    "New Game"
-  );
-  resetButton.onclick = function () {
-    reloadPage();
-  };
-  aboutInfo.append(resetButton);
+      timer = create("div").addClass("heading__result-time timer").appendTo(timeBlock);
+      timerTitle = create("p").addClass("heading__result-title timer__title").content("time: ").appendTo(timer);
+
+      unitTime = create("div").addClass("heading__result-value timer__units").appendTo(timer);
+      hours = create("p").addClass("timer__hours").addId("hours").content(`00`).appendTo(unitTime);
+      hours.after(create("span").addClass("timer__colon").content(":"));
+      minutes = create("p").addClass("timer__minutes").addId("minutes").content("00").appendTo(unitTime);
+      minutes.after(create("span").addClass("timer__colon").content(":"));
+      seconds = create("p").addClass("timer__seconds").addId("seconds").content("00").appendTo(unitTime);
+      milliseconds = create("p").addClass("timer__milliseconds").addId("milliseconds").content("000").appendTo(unitTime);
 }
 
-function timerCreate() {
-  let timer = createHTMLBlock(
-    "div",
-    "headline__timer timer score__count",
-    "",
-    "timer"
-  );
 
-  let timerTitle = createHTMLBlock("p", "timer__title score__title", "Timer");
-  let timeBlock = createHTMLBlock(
-    "div",
-    "timer__block",
-    ` <p class="timer__hours score__value" id="hours">00</p><span class="score__value">:</span>
-      <p class="timer__minutes score__value" id="minutes">00</p><span class="score__value">:</span>
-      <p class="timer__seconds score__value" id="seconds">00</p><span class="score__value">
-      <p class="timer__milliseconds score__value" id="milliseconds">000</p>`,
-    "clock"
-  );
-
-  timer.append(timerTitle, timeBlock);
-  document.querySelector(".heading__title").after(timer);
+const createBestTimeBLock = () => {
+    const bestTimeCount = create("div").addClass("heading__result-time best-time").appendTo(document.querySelector(".heading__time"));
+      bestTimeTitle = create("p").addClass("heading__result-title best-time__title").content("best: ").appendTo(bestTimeCount);
+      bestTimeValue = create("p").addClass("heading__result-value best-time__value").addId("best-result").content(`${localStorage.getItem("best-time")
+                                                                                              ? msToTime(localStorage.getItem("best-time")): 0}`)
+                                                                                              .appendTo(bestTimeCount);
 }
+
+
+function msToTime(ms) {
+  let milliseconds = Math.floor((ms % 1000) / 100);
+    seconds = Math.floor((ms / 1000) % 60);
+    minutes = Math.floor((ms / (1000 * 60)) % 60);
+    hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  
+  return  (hours) 
+              ? `${hours}h ${minutes}m ${seconds}.${milliseconds}s`
+              : `${minutes}m ${seconds}.${milliseconds}s`;
+}
+
+
+const createScoreBLock = () => {
+  const headingScore = document.querySelector(".heading__result");
+      scoreCount = create("div").addClass("heading__count score").appendTo(headingScore);
+      scoreTitle = create("p").addClass("heading__result-title score__title").content("score: ").appendTo(scoreCount);
+      scoreValue = create("p").addClass("heading__result-value score__value").addId("score-value").content("0").appendTo(scoreCount);
+}
+
+
+const createResetButton = () => {
+  const resetButton = create("button").addClass("button button-reset").content("new game").appendTo(document.querySelector(".heading__result"));
+  resetButton.onclick = () => window.location.reload();
+}
+
+
+createHeadline();   
+createTimer();
+createBestTimeBLock();
+createScoreBLock();
+createResetButton();
+
+
