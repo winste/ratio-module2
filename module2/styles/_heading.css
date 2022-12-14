@@ -17,7 +17,7 @@
 }
 
 .heading__about {
-  padding: 2px;
+  padding: 2px 20px;
   line-height: 1.5;
   border-top: 1px solid var(--color-text05);
   border-bottom: 1px solid var(--color-text05);
@@ -32,9 +32,12 @@
 
 .heading__time {
   display: flex;
+  padding: 10px;
   min-width: 320px;
   text-align: center;
   justify-content: space-between;
+  border-top: 2px solid rgb(236, 224, 57);
+  border-bottom: 2px solid rgb(230, 109, 11);
 }
 
 .heading__result {
@@ -90,13 +93,14 @@
 }
 
 .button-reset {
-  padding: 10px;
+  padding: 13px;
   width: 70px;
   font-size: 16px;
+  font-weight: bold;
   color: var(--color-text);
   background-color: transparent;
   border: 1px solid var(--color-text05);
-  border-radius: var(--border-radius);
+  border-radius: 10px;
   cursor: pointer;
 }
 

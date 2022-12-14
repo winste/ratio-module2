@@ -54,23 +54,28 @@ function onePress(e) {
   }
 }
 
+
 function slideLeft() {
   return motion.iterate(grid.getCellsByRows());
 }
+
 
 function slideRight() {
   return  motion.iterate(grid.getCellsByRows().map((row) => [...row].reverse()));
 }
 
+
 function slideUp() {
   return  motion.iterate(grid.getCellsByColumns());
 }
+
 
 function slideDown() {
   return  motion.iterate(
     grid.getCellsByColumns().map((columns) => [...columns].reverse())
   );
 }
+
 
 function gameEnd() {
   if (grid.gameIsWon()) {
@@ -82,16 +87,21 @@ function gameEnd() {
   }
 }
 
+
 function gameEndingActions(message) {
   timer.clockStop();
   board.removeEventListener("pointerdown", getStartPosition);
   board.removeEventListener("touchstart", getStartPosition);
   document.removeEventListener("keyup", onePress);
+  
+  for (let tile of document.querySelectorAll(".tile")) {
+    tile.classList.add("stop-game");
+  }
+  
   setTimeout(() => {
     confirm(`${message}`) ? window.location.reload() : false;
   }, 500);
 }
-
 
 
 function getTimeInTheEnd() {
