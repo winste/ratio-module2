@@ -1,57 +1,44 @@
 document.addEventListener("keyup", onePress);
 
 function onePress(e) {
-  let cellsBeforeMoving = grid.checkGridChange();
-
   if (motion.transitionEnding || motion.transitionEnding === null) {
-    if (e.code) {
-      if (
-        e.code == "ArrowUp" ||
-        e.code == "ArrowDown" ||
-        e.code == "ArrowLeft" ||
-        e.code == "ArrowRight"
-      ) {
-        timer.timerStart();
-        e.preventDefault();
-      }
-      switch (e.code) {
-        case "ArrowUp":
-          slideUp();
-          break;
-        case "ArrowDown":
-          slideDown();
-          break;
-        case "ArrowLeft":
-          slideLeft();
-          break;
-        case "ArrowRight":
-          slideRight();
-          break;
-        default:
-          return;
-      }
-    } else {
-      timer.timerStart();
-      switch (e) {
-        case "Up":
-          slideUp();
-          break;
-        case "Down":
-          slideDown();
-          break;
-        case "Left":
-          slideLeft();
-          break;
-        case "Right":
-          slideRight();
-          break;
-      }
-    }
-    let cellsAfterMoving = grid.checkGridChange();
+    let cellsBeforeMoving = grid.checkGridChange();
+    let eName = null;
 
+    if (e.code) {
+      eName = e.code;
+      e.preventDefault();
+    }
+    else {
+      eName = e;
+    }
+    timer.timerStart();
+    
+    switch (eName) {
+      case "ArrowUp":
+      case "Up":
+        slideUp();
+        break;
+      case "ArrowDown":
+      case "Down":
+        slideDown();
+        break;
+      case "ArrowLeft":
+      case "Left":
+        slideLeft();
+        break;
+      case "ArrowRight":
+      case "Right":
+        slideRight();
+        break;
+      default:
+        return;
+    }
+   
+    let cellsAfterMoving = grid.checkGridChange();
     if (cellsBeforeMoving !== cellsAfterMoving) grid.generateRandomCell();
-    gameEnd();
   }
+  gameEnd();
 }
 
 
