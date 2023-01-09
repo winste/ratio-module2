@@ -1,8 +1,8 @@
-@import url(/styles/_normalize.css);
-@import url(/styles/_fonts.css);
-@import url(/styles/_heading.css);
-@import url(/styles/_grid.css);
-@import url(/styles/_media.css);
+@import url(./styles/_normalize.css);
+@import url(./styles/_fonts.css);
+@import url(./styles/_heading.css);
+@import url(./styles/_grid.css);
+@import url(./styles/_media.css);
 
 
 :root {
