@@ -1,18 +1,20 @@
-document.addEventListener("keyup", onePress);
+document.addEventListener("keyup", onePress); 
 
+// выполняется при нажатии клавиши или зажатия и перемещения мышки
 function onePress(e) {
-  if (motion.transitionEnding || motion.transitionEnding === null) {
-    let cellsBeforeMoving = grid.checkGridChange();
-    let eName = null;
+  if (motion.transitionEnding || motion.transitionEnding === null) { // выполнить при первом нажатии или если анимация передвижения клеток закончилась
+    let cellsBeforeMoving = grid.checkGridChange(); // запись предыдущего состояния сетки
+    let eName = null; // для записи типа нажатия: мышка или клавиатура
 
-    if (e.code) {
+    if (e.code) {  // если нажаты стрелки
       eName = e.code;
       e.preventDefault();
     }
-    else {
+    else {        // иначе мышка или сенсор
       eName = e;
     }
-    timer.timerStart();
+    
+    if (timer.timerCheck) timer.timerStart();   // запуск таймера, если он еще не был запущен
     
     switch (eName) {
       case "ArrowUp":
@@ -35,73 +37,62 @@ function onePress(e) {
         return;
     }
    
-    let cellsAfterMoving = grid.checkGridChange();
-    if (cellsBeforeMoving !== cellsAfterMoving) grid.generateRandomCell();
+    let cellsAfterMoving = grid.checkGridChange(); // запись состояния сетки после нажатия
+    if (cellsBeforeMoving !== cellsAfterMoving) grid.generateRandomCell(); // если перемещение было, сгенерировать новую клетку
   }
-  gameEnd();
+  checkGameEnd();  // проверка на победу/поражение
 }
 
+// функции, возвращающие вид сетки в зависимости от направления передвижения
+// для направления право/низ строки нужно перевернуть
+let slideLeft = () => motion.iterate(grid.getCellsByRows());
+let slideRight = () => motion.iterate(grid.getCellsByRows().map((row) => [...row].reverse()));
+let slideUp = () => motion.iterate(grid.getCellsByColumns());
+let slideDown = () => motion.iterate(grid.getCellsByColumns().map((columns) => [...columns].reverse()));
 
-function slideLeft() {
-  return motion.iterate(grid.getCellsByRows());
-}
-
-
-function slideRight() {
-  return  motion.iterate(grid.getCellsByRows().map((row) => [...row].reverse()));
-}
-
-
-function slideUp() {
-  return  motion.iterate(grid.getCellsByColumns());
-}
-
-
-function slideDown() {
-  return  motion.iterate(
-    grid.getCellsByColumns().map((columns) => [...columns].reverse())
-  );
-}
-
-
-function gameEnd() {
+//выполняется в конце игры в случае победы/поражения
+function checkGameEnd() {
   if (grid.gameIsWon()) {
-    gameEndingActions("Congratulations! You win! Play again?");
-    getTimeInTheEnd();
+    stopActions();
+    getTimeInTheEnd(); // получение значения таймера в случае победы
+
+    setTimeout(() => {
+      confirm("Congratulations! You win! Play again?") ? window.location.reload() : false;
+    }, 500);
   } 
   else if (grid.gameIsLose()) {
-    gameEndingActions("Sorry! Game lose! Play again?");
+    stopActions();
+    setTimeout(() => {
+      confirm("Sorry! Game lose! Play again?") ? window.location.reload() : false;
+    }, 500);
   }
 }
 
-
-function gameEndingActions(message) {
+// остановка таймера, очищение слушателей и добавление размытия ячейкам
+function stopActions() {
   timer.clockStop();
   board.removeEventListener("pointerdown", getStartPosition);
   board.removeEventListener("touchstart", getStartPosition);
   document.removeEventListener("keyup", onePress);
   
   for (let tile of document.querySelectorAll(".tile")) {
-    tile.classList.add("stop-game");
+    tile.classList.add("tile__no-move");
   }
-  
-  setTimeout(() => {
-    confirm(`${message}`) ? window.location.reload() : false;
-  }, 500);
 }
 
-
+// получение значения таймера, перевод его в милисекунды и запись в locastorage
 function getTimeInTheEnd() {
+  // получение значения единиц времени по отдельности и перевод их в милисекунды
   let h = +document.getElementById("hours").innerHTML * 3600000;
-  m = +document.getElementById("minutes").innerHTML * 60000;
-  s = +document.getElementById("seconds").innerHTML * 1000;
-  ms = +document.getElementById("milliseconds").innerHTML;
+      m = +document.getElementById("minutes").innerHTML * 60000;
+      s = +document.getElementById("seconds").innerHTML * 1000;
+      ms = +document.getElementById("milliseconds").innerHTML;
 
-  let totalTime = h + m + s + ms;
-  let bestTime = localStorage.getItem("best-time");
+  let totalTime = h + m + s + ms; // итоговое время в милисекундах
+  let bestTime = localStorage.getItem("best-time"); // получение существующего значения из localstorage
 
-  if (totalTime < bestTime || bestTime == null || bestTime == "0") {
-    localStorage.setItem("best-time", totalTime);
-    document.getElementById("best-result").innerHTML = msToTime(totalTime);
+  if (totalTime < bestTime || bestTime == null || bestTime == "0") { // если новое значение меньше предудыдущего или записывается впервые
+    localStorage.setItem("best-time", totalTime);                    // то перезаписать
+    document.getElementById("best-result").innerHTML = msToTime(totalTime);  // вывести лучшее значние на страницу в блок "best"
   }
 }

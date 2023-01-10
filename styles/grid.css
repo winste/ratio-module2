@@ -105,6 +105,6 @@
   color:var(--color-text-cell);
 }
 
-.stop-game {
+.tile__no-move {
   filter: blur(2px);
 }
