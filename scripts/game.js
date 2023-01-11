@@ -3,7 +3,7 @@ document.addEventListener("keyup", onePress);
 // выполняется при нажатии клавиши или зажатия и перемещения мышки
 function onePress(e) {
   if (motion.transitionEnding || motion.transitionEnding === null) { // выполнить при первом нажатии или если анимация передвижения клеток закончилась
-    let cellsBeforeMoving = grid.checkGridChange(); // запись предыдущего состояния сетки
+    let cellsBeforeMoving = grid.writeCellsState(); // запись предыдущего состояния сетки
     let eName = null; // для записи типа нажатия: мышка или клавиатура
 
     if (e.code) {  // если нажаты стрелки
@@ -37,14 +37,16 @@ function onePress(e) {
         return;
     }
    
-    let cellsAfterMoving = grid.checkGridChange(); // запись состояния сетки после нажатия
+    let cellsAfterMoving = grid.writeCellsState(); // запись состояния сетки после нажатия
     if (cellsBeforeMoving !== cellsAfterMoving) grid.generateRandomCell(); // если перемещение было, сгенерировать новую клетку
   }
   checkGameEnd();  // проверка на победу/поражение
 }
 
-// функции, возвращающие вид сетки в зависимости от направления передвижения
-// для направления право/низ строки нужно перевернуть
+   /**
+    * функции, возвращающие вид сетки в зависимости от направления передвижения:
+    * для направления право/низ строки нужно перевернуть
+    */
 let slideLeft = () => motion.iterate(grid.getCellsByRows());
 let slideRight = () => motion.iterate(grid.getCellsByRows().map((row) => [...row].reverse()));
 let slideUp = () => motion.iterate(grid.getCellsByColumns());
