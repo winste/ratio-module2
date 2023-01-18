@@ -1,7 +1,3 @@
-.board-container {
-  margin-bottom: 100px;
-}
-
 .board {
   position: relative;
   display: flex;
@@ -15,7 +11,7 @@
   font-size: 55px;
   background-color: var(--color-grid);
   border-radius: var(--border-radius);;
-  box-shadow: 0 0 10px 5px #2a264945;
+  box-shadow: 0 0 10px 5px var(--box-shadow-grid);
 }
 
 .board__cell {
@@ -38,7 +34,7 @@
   user-select: none;
   transition: 100ms ease-in-out;
   background-color: var(--color-cell);
-  box-shadow: 0 0 7px 1px #433f6145;
+  box-shadow: 0 0 7px 1px var(--box-shadow-grid);
   top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
   left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
 }
@@ -48,62 +44,62 @@
 }
 
 .tile__2 {
-  background-color:#fcfa74;
+  background-color:rgb(252, 250, 116);
   color:var(--color-text)
 }
 
 .tile__4 {
-  background-color:#74fc86;
+  background-color:rgb(116, 252, 134);
   color:var(--color-text)
 }
 
 .tile__8 {
-  background-color:#6ce2e2;
+  background-color:rgb(108, 226, 226);
   color: var(--color-text)
 }
 
 .tile__16 {
   
-  background-color:#4c92d3;
+  background-color:rgb(76, 146, 211);
   color: var(--color-text-cell)
 }
 .tile__32 {
-  background-color:#6269c7;
+  background-color:rgb(98, 105, 199);
   color: var(--color-text-cell)
 }
 
 .tile__64 {
-  background-color:#a772c6;
+  background-color:rgb(167, 114, 198);
   color: var(--color-text-cell)
 }
 
 .tile__128 {
   --font-size-cell: 45px;
-  background-color:#db6fbb;
+  background-color:rgb(219, 111, 187);
   color: var(--color-text-cell);
   font-size: var(--font-size-cell)
 }
 
 .tile__256 {
-  background-color:#eb507e;
+  background-color:rgb(235, 80, 126);
   color: var(--color-text-cell);
   font-size: var(--font-size-cell)
 }
 
 .tile__512 {
-  background-color:#df5757;
+  background-color:rgb(223, 87, 87);
   color: var(--color-text-cell);
   font-size: var(--font-size-cell)
 }
 
 .tile__1024 {
-  background-color:#e0885f;
+  background-color:rgb(224, 136, 95);
   font-size:30px;
   color:var(--color-text-cell);
 }
 
 .tile__2048 {
-  background-color:#ffca3a;
+  background-color:rgb(255, 202, 58);
   font-size:30px;
   color:var(--color-text-cell);
 }

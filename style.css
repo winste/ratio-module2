@@ -18,7 +18,8 @@
   --tile-size: 108px;
   --border-radius: 20px;
   --linear-gradient: 135deg, rgb(247, 164, 0) 38%, rgb(255, 0, 157) 50%,rgb(0, 255, 232) 65%;
-  --linear-gradient-hover: 135deg, #f7a50088, #fe0e8e80, #15eae383;
+  --linear-gradient-hover: 135deg, rgba(247, 165, 0, 0.533), rgba(254, 14, 142, 0.502), rgba(21, 234, 227, 0.514);
+  --box-shadow-grid:rgba(67, 63, 97, 0.271);
 }
 
 
@@ -43,7 +44,7 @@ body {
   font-family: "Baloo", "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: var(--font-size-main);
   color: var(--color-text);
-  background: linear-gradient(to top left, #eec8ffde, #f6fdc6c9) no-repeat;
+  background: linear-gradient(to top left, rgba(238, 200, 255, 0.871), rgba(246, 253, 198, 0.788)) no-repeat;
 }
 
 

@@ -106,7 +106,7 @@
 
 .button-reset:hover {
   background: linear-gradient(var(--linear-gradient-hover));
-  color: white;
+  color: rgb(255, 255, 255);
   font-weight: bold;
   border-color: var(--color-grid);
 }
