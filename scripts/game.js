@@ -78,7 +78,7 @@ function stopActions() {
   document.removeEventListener("keyup", onePress);
   
   for (let tile of document.querySelectorAll(".tile")) {
-    tile.classList.add("tile__no-move");
+    tile.classList.add("tile--no-move");
   }
 }
 

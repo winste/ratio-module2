@@ -43,6 +43,9 @@
   left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
 }
 
+.tile--no-move {
+  filter: blur(2px);
+}
 
 .tile__2 {
   background-color:#fcfa74;
@@ -103,8 +106,4 @@
   background-color:#ffca3a;
   font-size:30px;
   color:var(--color-text-cell);
-}
-
-.tile__no-move {
-  filter: blur(2px);
 }
